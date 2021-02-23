@@ -1,5 +1,11 @@
 <html>
 <h1>Welcome to MYPT-APP</h1>
 
-<%=  %>
+<% @exercises.select do |e| %>
+<% if e.body_parts.include?("eye") %>
+<%= e.name %>
+<br>
+ <% else %>
+ <% end %>
+<% end %>
 </html>
