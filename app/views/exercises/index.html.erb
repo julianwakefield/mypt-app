@@ -6,8 +6,14 @@
   <%= f.submit "Search", class: "btn btn-primary" %>
 <% end %>
 
-
-<% @exercises.each do |e| %>
-<%= e.name %>
+<% if @search.present? %> 
+  <% @body_parts = @search["body_parts"] %>
+    <% @exercises = Exercise.where("body_parts LIKE ?", "%#{@body_parts}%") %>       
+        <% @exercises.each do |e| %>      
+                <%= e.name %>
+            <% end %>
+              
+      
 <% end %>
+
 </html>

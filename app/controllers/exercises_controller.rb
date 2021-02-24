@@ -4,11 +4,11 @@ class ExercisesController < ApplicationController
 
       @exercises = Exercise.all
       @search = params["search"]
-      @else = "no"
-      if @search.present?
-        @body_parts = @search["body_parts"]
-        @exercises = Exercise.where("body_parts LIKE ?", "%#{@body_parts}%")
-      end
+  
+      # if @search.present?
+      #   @body_parts = @search["body_parts"]
+      #   @exercises = Exercise.where("body_parts LIKE ?", "%#{@body_parts}%")
+      # end
     end
     
     def new
