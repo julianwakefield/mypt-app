@@ -1,19 +1,13 @@
 <html>
 <h1>Welcome to MYPT-APP</h1>
-
+<p>What's your workout today?</p>
 <%= simple_form_for :search, url: exercises_path, method: "GET", html: { class: 'form-inline' } do |f| %>
   <%= f.input :body_parts, input_html: {value: ""} %>   
   <%= f.submit "Search", class: "btn btn-primary" %>
 <% end %>
 
-<% if @search.present? %> 
-  <% @body_parts = @search["body_parts"] %>
-    <% @exercises = Exercise.where("body_parts LIKE ?", "%#{@body_parts}%") %>       
-        <% @exercises.each do |e| %>      
-                <%= e.name %>
-            <% end %>
-              
-      
-<% end %>
-
+ <% @workouts.each do |w| %>
+ <br>
+  <%= w.name %>
+ <% end %>
 </html>

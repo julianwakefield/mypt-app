@@ -3,12 +3,15 @@ class ExercisesController < ApplicationController
     def index
 
       @exercises = Exercise.all
+      @workouts = []
       @search = params["search"]
-  
-      # if @search.present?
-      #   @body_parts = @search["body_parts"]
-      #   @exercises = Exercise.where("body_parts LIKE ?", "%#{@body_parts}%")
-      # end
+
+      if @search.present?
+        @search = params["search"]
+        @body_parts = @search["body_parts"]
+        @exercises = Exercise.where("body_parts LIKE ?", "%#{@body_parts}%")
+        @workouts = @exercises.sample(3)
+      end
     end
     
     def new
