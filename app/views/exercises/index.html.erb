@@ -1,11 +1,13 @@
 <html>
 <h1>Welcome to MYPT-APP</h1>
 
-<% @exercises.select do |e| %>
-<% if e.body_parts.include?("eye") %>
+<%= simple_form_for :search, url: exercises_path, method: "GET", html: { class: 'form-inline' } do |f| %>
+  <%= f.input :body_parts, input_html: {value: ""} %>   
+  <%= f.submit "Search", class: "btn btn-primary" %>
+<% end %>
+
+
+<% @exercises.each do |e| %>
 <%= e.name %>
-<br>
- <% else %>
- <% end %>
 <% end %>
 </html>

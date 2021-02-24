@@ -1,7 +1,14 @@
 class ExercisesController < ApplicationController
 
     def index
-        @exercises = Exercise.all
+
+      @exercises = Exercise.all
+      @search = params["search"]
+      @else = "no"
+      if @search.present?
+        @body_parts = @search["body_parts"]
+        @exercises = Exercise.where("body_parts LIKE ?", "%#{@body_parts}%")
+      end
     end
     
     def new
@@ -18,7 +25,11 @@ class ExercisesController < ApplicationController
         end
     end
 
-    
+    private
+
+    def exercise_params
+      params.require(:exercise).permit(:name, :body_parts)
+    end
 
 
 end
