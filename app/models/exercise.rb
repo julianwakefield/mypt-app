@@ -1,2 +1,9 @@
 class Exercise < ApplicationRecord
+
+    include PgSearch::Model
+    pg_search_scope :search_by_body_parts,
+      against: [ :body_parts ],
+      using: {
+        tsearch: { prefix: true }
+      }
 end

@@ -1,13 +1,22 @@
 <html>
 <h1>Welcome to MYPT-APP</h1>
 <p>What's your workout today?</p>
-<%= simple_form_for :search, url: exercises_path, method: "GET", html: { class: 'form-inline' } do |f| %>
-  <%= f.input :body_parts, input_html: {value: ""} %>   
-  <%= f.submit "Search", class: "btn btn-primary" %>
-<% end %>
 
- <% @workouts.each do |w| %>
- <br>
-  <%= w.name %>
- <% end %>
+<form action="/exercises" method="get">
+<select name="query">
+<option value="legs">legs</option>
+<option value="lower leg">lower leg</option>
+<option value="back">back</option>
+<input type="submit" value="submit">
+</select>
+</form>
+
+<% if params[:query].present? %>
+  <% @workout.each do |w| %>
+  <br>
+    <%= w.name %>
+  <% end %>
+  <% else params[:query].present? == false %>
+  <p>type something please</p>
+<% end %>
 </html>

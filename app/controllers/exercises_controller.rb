@@ -2,15 +2,18 @@ class ExercisesController < ApplicationController
 
     def index
 
-      @exercises = Exercise.all
       @workouts = []
-      @search = params["search"]
+      @wrong = " "
 
-      if @search.present?
-        @search = params["search"]
-        @body_parts = @search["body_parts"]
-        @exercises = Exercise.where("body_parts LIKE ?", "%#{@body_parts}%")
-        @workouts = @exercises.sample(3)
+      if params[:query].present?
+        @exercises = Exercise.search_by_body_parts(params[:query])
+        @workout = @exercises.sample(3)
+      elsif params[:query].present?
+        Exercise.search_by_body_parts(params[:query]) == false
+        @wrong = "ok"
+      else
+        @exercises = Exercise.all
+        @workout = @exercises
       end
     end
     
